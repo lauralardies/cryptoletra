@@ -13,6 +13,7 @@ let gameOver = false;
 
 window.onload = function(){
   crearTablero();
+  entradaUsuario();
 }
 
 function crearTablero() {
@@ -21,8 +22,27 @@ function crearTablero() {
       let casilla = document.createElement("span"); // Creamos una etiqueta span
       casilla.classList.add("casilla"); // Agregamos la clase "casilla" a la etiqueta span que hemos creado
       casilla.id = "casilla-" + i + "-" + j; // Agregamos un id a la etiqueta span que hemos creado: casilla-0-0, casilla-0-1, casilla-0-2, etc.
-      casilla.innerText = "A"; // Agregamos un texto vacío a la etiqueta span que hemos creado
+      casilla.innerText = ""; // Agregamos un texto vacío a la etiqueta span que hemos creado
       document.getElementById("tablero").appendChild(casilla); // Agregamos la etiqueta span que hemos creado al elemento con el id "tablero"
     }
   }
+}
+
+function entradaUsuario () {
+  document.addEventListener("keyup", function(e) {
+    if (gameOver) { // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
+      return;
+    } 
+
+    // Limitamos las teclas que el usuario puede presionar para jugar
+    if (e.code >= "KeyA" && e.code <= "KeyZ") {
+      if (columna < columnas) { // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
+        let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
+        if (casillaActual.innerText === "") { // Sólo agregamos letras si la casilla está vacía
+          casillaActual.innerText = e.code[3].toUpperCase(); 
+          columna++;
+        }
+      }
+    } 
+  })
 }
