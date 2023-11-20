@@ -1,5 +1,6 @@
 let filas = 6; // Las filas coinciden con el número de intentos que tiene el jugador para adivinar la palabra
 let columnas = 5; // Las columnas coinciden con el número de letras que tiene la palabra a adivinar
+let letras = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"], ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"], ["ENVIAR", "Z", "X", "C", "V", "B", "N", "M", "BORRAR"]];
 
 // Posición actual del jugador
 let fila = 0; // Primer intento
@@ -13,6 +14,7 @@ let gameOver = false;
 
 window.onload = function(){
   crearTablero();
+  crearTeclado();
   entradaUsuario();
 }
 
@@ -28,8 +30,20 @@ function crearTablero() {
   }
 }
 
-function entradaUsuario () {
+function crearTeclado() {
+  for (let i = 0; i < letras.length; i++) {
+    let linea = document.createElement("div"); // Creamos una etiqueta div
+    for (let j = 0; j < letras[i].length; j++) {
+      let tecla = document.createElement("button"); // Creamos un botón
+      tecla.classList.add("tecla"); // Agregamos la clase "tecla" al botón que hemos creado
+      tecla.innerText = letras[i][j]; // Agregamos el texto que corresponde a la tecla que estamos creando
+      linea.appendChild(tecla); // Agregamos el botón que hemos creado a la etiqueta div que hemos creado
+    }
+    document.getElementById("teclado").appendChild(linea); // Agregamos la etiqueta div que hemos creado al elemento con el id "teclado"
+  }
+}
 
+function entradaUsuario () {
   document.addEventListener("keyup", function(e) {
     if (gameOver) { // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
       return;
