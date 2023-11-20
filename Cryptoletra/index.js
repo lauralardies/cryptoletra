@@ -60,7 +60,17 @@ function entradaUsuario () {
   })
 }
 
-function comprobarPalabra (palabra) {
+function comprobarPalabra () {
+  for (let i = 0; i < columnas; i++) {
+    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
+    if (casillaActual.innerText === palabra[i]) {
+      casillaActual.classList.add("correcta");
+    } else if (palabra.includes(casillaActual.innerText)) {
+      casillaActual.classList.add("incorrecta");
+    } else {
+      casillaActual.classList.add("nula");
+    }
+  }
   fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
   columna = 0; // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
 }
