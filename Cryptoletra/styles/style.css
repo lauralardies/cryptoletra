@@ -96,11 +96,14 @@ body {
 }
 
 .tecla {
+    /* Cajita */
+    padding: 5px 10px;
+    margin: 2.15px;
+    border: 1px solid gray;
+    border-radius: 10%;
+    background-color: transparent;
+
+    /* Texto */
     font-family: "consolas";
     color: #222021;
-    padding: 5px 10px;
-    margin: 2px;
-    border: 1px solid gray;
-    border-radius: 2px;
-    background-color: transparent;
 }
