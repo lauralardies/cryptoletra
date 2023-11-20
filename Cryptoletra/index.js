@@ -51,7 +51,9 @@ function entradaUsuario () {
         casillaActual.innerText = ""; // Borramos la letra de la casilla actual
       }
     } else if (e.code == "Enter") { // Si el usuario presiona la tecla "Enter", comprobamos si la palabra es correcta
-      comprobarPalabra();
+      if (columna === columnas) { // Sólo comprobamos la palabra si el usuario ha escrito todas las letras
+        comprobarPalabra();
+      }
     }
 
     // Si el usuario se ha quedado sin intentos, pierde
