@@ -39,10 +39,28 @@ function entradaUsuario () {
       if (columna < columnas) { // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
         let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
         if (casillaActual.innerText === "") { // Sólo agregamos letras si la casilla está vacía
-          casillaActual.innerText = e.code[3].toUpperCase(); 
-          columna++;
+          casillaActual.innerText = e.key.toUpperCase(); // Agregamos la letra que el usuario ha presionado a la casilla actual.
+          columna++; // Aumentamos la columna para que el usuario pueda agregar la siguiente letra
         }
       }
-    } 
+    } else if (e.code == "Backspace") { // Si el usuario presiona la tecla "Backspace", borramos última la letra que el usuario ha escrito
+      if (columna > 0 && columna <= columnas) { // Sólo borramos letras si el usuario ha escrito al menos una letra
+        columna--; // Disminuimos la columna para que el usuario pueda borrar la letra anterior
+        let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
+        casillaActual.innerText = ""; // Borramos la letra de la casilla actual
+      }
+    } else if (e.code == "Enter") { // Si el usuario presiona la tecla "Enter", comprobamos si la palabra es correcta
+      comprobarPalabra();
+    }
+
+    // Si el usuario se ha quedado sin intentos, pierde
+    if (fila === filas && !gameOver) {
+      gameOver = true;
+    }
   })
+}
+
+function comprobarPalabra (palabra) {
+  fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
+  columna = 0; // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
 }
