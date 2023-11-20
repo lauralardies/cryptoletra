@@ -78,3 +78,8 @@ body {
     border-color: white;
     color: white;
 }
+
+.actual {
+    /* Indica la posición del jugador */
+    border-color: rgb(144, 202, 249);
+}

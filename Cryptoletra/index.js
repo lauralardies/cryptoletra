@@ -29,11 +29,12 @@ function crearTablero() {
 }
 
 function entradaUsuario () {
+
   document.addEventListener("keyup", function(e) {
     if (gameOver) { // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
       return;
     } 
-
+    
     // Limitamos las teclas que el usuario puede presionar para jugar
     if (e.code >= "KeyA" && e.code <= "KeyZ") {
       if (columna < columnas) { // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
