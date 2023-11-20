@@ -36,7 +36,7 @@ function entradaUsuario () {
     } 
     
     // Limitamos las teclas que el usuario puede presionar para jugar
-    if (e.code >= "KeyA" && e.code <= "KeyZ") {
+    if (/^[a-zA-ZñÑ]$/.test(e.key)) {
       if (columna < columnas) { // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
         let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
         if (casillaActual.innerText === "") { // Sólo agregamos letras si la casilla está vacía
