@@ -18,13 +18,30 @@ window.onload = function(){
   entradaUsuario();
 }
 
-function posicionAleatoria() {
-  return Math.floor(Math.random() * columnas)
+function generarArray() {
+  let array = [];
+  for (let i = 0; i < columnas; i++) {
+    array.push(i);
+  }
+  return array;
+}
+
+function posicionAleatoria(array) {
+  let indice = Math.floor(Math.random() * array.length); // Escogemos un índice aleatorio entre todos los elementos del array
+  let posicion = array[indice];
+  array.splice(indice, 1); // Eliminamos el elemento que hemos elegido aleatoriamente para que no se repita
+  return posicion;
 }
 
 function crearTablero() {
+  let casillasSinOcultar = generarArray(); // Creamos un array con las posiciones de las casillas que no se han ocultado. A medida que ocultamos casillas, eliminamos las posiciones de este array
+  let casillaOculta; // Posición de la casilla que se ocultará en cada fila
   for (let i = 0; i < filas; i++) {
-    let casillaOculta = posicionAleatoria(); // Generamos una posición aleatoria para ocultar una letra diferente en cada fila
+    if (casillasSinOcultar.length === 0) { // Si ya no quedan casillas por ocultar, escogemos una posición aleatoria entre todas las casillas
+      casillaOculta = posicionAleatoria(generarArray()); 
+    } else { // Si aún quedan casillas por ocultar, escogemos una posición aleatoria entre las casillas que aún no se han ocultado
+      casillaOculta = posicionAleatoria(casillasSinOcultar); 
+    }
     for (let j = 0; j < columnas; j++) {
       let casilla = document.createElement("span"); // Creamos una etiqueta span
       casilla.classList.add("casilla"); // Agregamos la clase "casilla" a la etiqueta span que hemos creado
