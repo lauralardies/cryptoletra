@@ -18,15 +18,24 @@ window.onload = function(){
   entradaUsuario();
 }
 
+function posicionAleatoria() {
+  return Math.floor(Math.random() * columnas)
+}
+
 function crearTablero() {
   for (let i = 0; i < filas; i++) {
+    let casillaOculta = posicionAleatoria(); // Generamos una posición aleatoria para ocultar la letra
     for (let j = 0; j < columnas; j++) {
       let casilla = document.createElement("span"); // Creamos una etiqueta span
       casilla.classList.add("casilla"); // Agregamos la clase "casilla" a la etiqueta span que hemos creado
       casilla.id = "casilla-" + i + "-" + j; // Agregamos un id a la etiqueta span que hemos creado: casilla-0-0, casilla-0-1, casilla-0-2, etc.
       casilla.innerText = ""; // Agregamos un texto vacío a la etiqueta span que hemos creado
+      if (j === casillaOculta) { // Si la columna coincide con la columna oculta, agregamos la clase oculta a la casilla
+        casilla.classList.add("oculta");
+      }
       document.getElementById("tablero").appendChild(casilla); // Agregamos la etiqueta span que hemos creado al elemento con el id "tablero"
     }
+  
   }
 }
 
@@ -80,12 +89,14 @@ function entradaUsuario () {
 function comprobarPalabra () {
   for (let i = 0; i < columnas; i++) {
     let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
-    if (casillaActual.innerText === palabra[i]) {
-      casillaActual.classList.add("correcta");
-    } else if (palabra.includes(casillaActual.innerText)) {
-      casillaActual.classList.add("incorrecta");
-    } else {
-      casillaActual.classList.add("nula");
+    if (!casillaActual.classList.contains("oculta")) { // Si la casilla no está oculta, revelamos información. De lo contrario, no revelamos nada
+      if (casillaActual.innerText === palabra[i]) {
+        casillaActual.classList.add("correcta");
+      } else if (palabra.includes(casillaActual.innerText)) {
+        casillaActual.classList.add("incorrecta");
+      } else {
+        casillaActual.classList.add("nula");
+      }
     }
   }
   fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
