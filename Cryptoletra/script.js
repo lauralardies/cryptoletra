@@ -35,12 +35,17 @@ function posicionAleatoria(array) {
 
 function crearTablero() {
   let casillasSinOcultar = generarArray(); // Creamos un array con las posiciones de las casillas que no se han ocultado. A medida que ocultamos casillas, eliminamos las posiciones de este array
-  let casillaOculta; // Posición de la casilla que se ocultará en cada fila
+  let casillaOculta, ultimaPosicion; // Posición de la casilla que se ocultará en cada fila
   for (let i = 0; i < filas; i++) {
     if (casillasSinOcultar.length === 0) { // Si ya no quedan casillas por ocultar, escogemos una posición aleatoria entre todas las casillas
-      casillaOculta = posicionAleatoria(generarArray()); 
+      let array = generarArray();
+      array.splice(ultimaPosicion, 1); // Eliminamos la última posición que hemos ocultado para que no se repita, ya que no queremos que se oculten dos casillas seguidas en filas seguidas
+      casillaOculta = posicionAleatoria(array);
     } else { // Si aún quedan casillas por ocultar, escogemos una posición aleatoria entre las casillas que aún no se han ocultado
-      casillaOculta = posicionAleatoria(casillasSinOcultar); 
+      casillaOculta = posicionAleatoria(casillasSinOcultar);
+      if (casillasSinOcultar.length === 0) { // Si ya no quedan casillas por ocultar, guardamos la última posición que hemos ocultado
+        ultimaPosicion = casillaOculta;
+      }
     }
     for (let j = 0; j < columnas; j++) {
       let casilla = document.createElement("span"); // Creamos una etiqueta span
