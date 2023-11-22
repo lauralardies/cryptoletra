@@ -18,7 +18,7 @@ window.onload = function(){
   entradaUsuario();
 }
 
-function generarArray() {
+function generarArray() { // Genera un array con todas las posiciones posibles de las casillas en una fila
   let array = [];
   for (let i = 0; i < columnas; i++) {
     array.push(i);
@@ -57,7 +57,6 @@ function crearTablero() {
       }
       document.getElementById("tablero").appendChild(casilla); // Agregamos la etiqueta span que hemos creado al elemento con el id "tablero"
     }
-  
   }
 }
 
