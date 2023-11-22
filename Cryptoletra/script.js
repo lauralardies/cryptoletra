@@ -39,7 +39,7 @@ function crearTablero() {
   for (let i = 0; i < filas; i++) {
     if (casillasSinOcultar.length === 0) { // Si ya no quedan casillas por ocultar, escogemos una posición aleatoria entre todas las casillas
       let array = generarArray();
-      array.splice(ultimaPosicion, 1); // Eliminamos la última posición que hemos ocultado para que no se repita, ya que no queremos que se oculten dos casillas seguidas en filas seguidas
+      array.splice(ultimaPosicion, 1); // Eliminamos la última posición que hemos ocultado para que no se repita, ya que no queremos que se oculten las mismas casillas en dos filas seguidas
       casillaOculta = posicionAleatoria(array);
     } else { // Si aún quedan casillas por ocultar, escogemos una posición aleatoria entre las casillas que aún no se han ocultado
       casillaOculta = posicionAleatoria(casillasSinOcultar);
