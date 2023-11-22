@@ -24,7 +24,7 @@ function posicionAleatoria() {
 
 function crearTablero() {
   for (let i = 0; i < filas; i++) {
-    let casillaOculta = posicionAleatoria(); // Generamos una posición aleatoria para ocultar la letra
+    let casillaOculta = posicionAleatoria(); // Generamos una posición aleatoria para ocultar una letra diferente en cada fila
     for (let j = 0; j < columnas; j++) {
       let casilla = document.createElement("span"); // Creamos una etiqueta span
       casilla.classList.add("casilla"); // Agregamos la clase "casilla" a la etiqueta span que hemos creado

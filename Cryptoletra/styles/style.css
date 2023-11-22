@@ -132,8 +132,13 @@ body {
     border: 1px solid gray;
     border-radius: 10%;
     background-color: transparent;
+    cursor: pointer;
 
     /* Texto */
     font-family: "consolas";
     color: #222021;
+}
+
+.tecla:hover {
+    background-color: lightgray;
 }
