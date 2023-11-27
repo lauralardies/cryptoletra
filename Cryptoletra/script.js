@@ -165,8 +165,8 @@ function comprobarPalabra() {
     
     if (casillaActual.innerText === palabra[i]) {
       correctas++;
-      mapLetras[casillaActual.innerText] -= 1;
       if (!casillaActual.classList.contains("oculta")) {
+        mapLetras[casillaActual.innerText]--;
         casillaActual.classList.add("correcta");
         teclaActual.classList.add("correcta");
       }
@@ -180,9 +180,9 @@ function comprobarPalabra() {
     let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
     let teclaActual = document.getElementById(casillaActual.innerText);
 
-    if (!casillaActual.classList.contains("correcta") && !casillaActual.classList.contains("oculta") && !teclaActual.classList.contains("correcta")) { // Nos aseguramos que no estamos mirando una posición correcta ni oculta
+    if (!casillaActual.classList.contains("correcta") && !casillaActual.classList.contains("oculta")) { // Nos aseguramos que no estamos mirando una posición correcta ni oculta
       if (palabra.includes(casillaActual.innerText) && mapLetras[casillaActual.innerText] > 0) {
-        mapLetras[casillaActual.innerText] -= 1;
+        mapLetras[casillaActual.innerText]--;
         casillaActual.classList.add("incorrecta");
         teclaActual.classList.add("incorrecta");
 
