@@ -116,23 +116,44 @@ function entradaUsuario () {
 }
 
 function comprobarPalabra() {
-  let correctas = 0;
+  let correctas = 0; // Variable que lleva la cuenta de el número de letras que el usuario ha acertado
+
+  // Hacemos mapeo para llevar la cuenta de el número de veces que aparece cada letra en la palabra
+  let mapLetras = {};
+  for (let i = 0; i < palabra.length; i++) {
+    if (mapLetras[palabra[i]]) {
+      mapLetras[palabra[i]]++;
+    } else {
+      mapLetras[palabra[i]] = 1;
+    }
+  }
+
   for (let i = 0; i < columnas; i++) { // Primero miramos las posiciones correctas
     let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
     if (casillaActual.innerText === palabra[i]) {
       correctas++;
+      mapLetras[casillaActual.innerText] -= 1;
       if (!casillaActual.classList.contains("oculta")) {
         casillaActual.classList.add("correcta");
       }
-    } else if (palabra.includes(casillaActual.innerText) && !casillaActual.classList.contains("oculta")) {
-      casillaActual.classList.add("incorrecta");
-    } else if (!casillaActual.classList.contains("oculta")) {
-      casillaActual.classList.add("nula");
     }
     if (correctas === columnas) {
       gameOver = true;
     }
   }
+  
+  for (let i = 0; i < columnas; i++) { // En la segunda vuelta, miramos las posiciones incorrectas y nulas
+    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
+    if (!casillaActual.classList.contains("correcta") && !casillaActual.classList.contains("oculta")) { // Nos aseguramos que no estamos mirando una posición correcta ni oculta
+      if (palabra.includes(casillaActual.innerText) && mapLetras[casillaActual.innerText] > 0) {
+        mapLetras[casillaActual.innerText] -= 1;
+        casillaActual.classList.add("incorrecta");
+      } else {
+        casillaActual.classList.add("nula");
+      }
+    }
+  }
+
   fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
   columna = 0; // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
 }
