@@ -1,6 +1,6 @@
 let filas = 6; // Las filas coinciden con el número de intentos que tiene el jugador para adivinar la palabra
 let columnas = 5; // Las columnas coinciden con el número de letras que tiene la palabra a adivinar
-let letras = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"], ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"], [" ↳ ", "Z", "X", "C", "V", "B", "N", "M", "⌫"]];
+let letras = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"], ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"], ["ENVIAR", "Z", "X", "C", "V", "B", "N", "M", "BORRAR"]];
 let palabras = ["nieve", "hueso", "titan", "flujo", "disco", "razon", "mural", "abril", "vejez", "falso", "cañon", "obeso", "metal", "avena", "rubia", "pieza", "cuero", "noche", "bingo", "corto", "multa", "nieto", "dieta", "mosca", "nadal", "lider", "cerco", "rocio", "apoyo", "secta", "ganar", "besar", "novio", "albur", "litio", "llaga", "rueda", "corta", "feliz", "miope", "mojar", "cesta", "soplo", "nueve", "radio", "sexto", "sucio", "papel", "huevo", "polar", "rotar", "fuego", "lucir", "macho", "braza", "serio", "libra", "enano", "salsa", "ciego", "mujer", "sauna", "malta", "civil", "flota", "chile", "acudo", "modas", "criar", "hurto", "latir", "risas", "ganso", "suiza", "otoño", "suelo", "exito", "caber", "epica", "perra", "juego", "igneo", "ingle", "mango", "caida", "doler", "album", "sudar", "duque", "curro",
   "musgo", "varon", "crear", "carne", "ovulo", "nivel", "villa", "moral", "parte", "anexo", "tapiz", "fecha", "sesgo", "ligar", "chino", "patio", "votar", "torso", "avion", "dudar", "forja", "odiar", "utero", "cauce", "hogar", "relax", "yelmo", "regla", "marzo", "cairo", "aereo", "negro", "modal", "caldo", "museo", "abrir", "laser", "signo", "nariz", "peine", "turno", "coche", "pleno", "fibra", "faena", "sitio", "balsa", "ambar", "recta", "aquel", "impar", "tonto", "tirar", "caras", "fluir", "japon", "lugar", "coger", "traza", "tibio", "tenis", "monto", "curva", "oveja", "rumor", "sobra", "helio", "abaco", "gallo", "trama", "moler", "barro", "bando", "lista", "terna", "claro", "burla", "salir", "magia", "boxeo", "combo", "arepa", "dolar", "rifar", "ideal", "cinco", "cenar", "selva", "rayon", "tigre", "opera", "clave", 
   "arpon", "karma", "subir", "banda", "cavar", "tenaz", "prima", "cerda", "arder", "pañal", "mixta", "limon", "buena", "espia", "horno", "aguda", "polea", "sifon", "atomo", "cisne", "sufro", "sorda", "quedo", "teñir", "novia", "sordo", "teson", "curso", "suena", "queso", "frase", "flaco", "rubio", "drama", "traje", "calvo", "suero", "ebrio", "arbol", "gasto", "golfo", "cacho", "primo", "rombo", "falsa", "diosa", "flaca", "bahia", "dupla", "minar", "ilesa", "unica", "viaje", "anual", "gansa", "muela", "zorro", "nuevo", "sutil", "dogma", "rimar", "mente", "libro", "chula", "reves", "campo", "chico", "causa", "perro", "junto", "fauno", "digno", "tabla", "tocar", "culta", "piojo", "pivot", "droga", "cifra", "monte", "zurda", "cromo", "kayak", "frita", "marea", "oxido", "salmo", "fresa", "nadar", "presa", "bambu", "arena", 
@@ -10,7 +10,7 @@ let palabras = ["nieve", "hueso", "titan", "flujo", "disco", "razon", "mural", "
   "alien", "bueno", "tejer", "vacio", "grano", "jugar", "deseo", "ostra", "apaga", "hotel", "tener", "ictus", "exijo", "toldo", "metro", "donut", "atroz", "angel", "hongo", "foton", "golpe", "puñal", "ronda", "fuera", "latin", "cofre", "talar", "tilde", "canto", "hueco", "rezar", "calle", "pluma", "orden", "vieja", "humor", "fusil", "fosil", "usual", "favor", "enero", "leche", "calza", "fruta", "comer", "pixel", "usted", "rango", "pitar", "bomba", "bamba", "manco", "robar", "punto", "preso", "poder", "alero", "gotea", "chica", "rabia", "nunca", "dulce", "tribu", "forma", "agudo", "rollo", "rugby", "jabon", "torta", "hiato", "diodo", "obvia", "riego", "temor", "trozo", "lunar", "motor", "cable", "cagar", "paseo", "banal", "union", "media", "mamut", "tedio", "labio", "bombo", "rasgo", "lider", "reloj", "razon", "torre", 
   "jarra", "laica", "ocaso", "amigo", "debil", "sabor", "menor", "indio", "dolor", "honra", "obesa", "techo", "ajeno", "tinte", "lemur", "plana", "caigo", "animo", "quema", "baton", "femur", "bolso", "rodar", "cabal", "ataud", "agrio", "atril", "pelea", "donar", "feroz", "linda", "datil", "farol", "norte", "rasta", "dañar", "motin", "negar", "gorra", "mafia", "letal", "lepra", "arabe", "laton", "angel", "padel", "pauta", "legua", "freno", "logro", "goteo", "rigor", "pizca", "magma", "ovalo", "virgo", "cursi", "batir", "momia", "aleta", "plaga", "apaña", "lleno", "vigor", "adobo", "junta", "pagar", "ajena", "rodeo", "acida", "plena", "palco", "asado", "ayuda", "magna", "vibra", "citar", "pulso", "mayor", "termo", "meson", "fondo", "tesis", "mueca", "calca", "solar", "prado", "pista", "sudor", "praga", "polen", "aroma", 
   "nuera", "plata", "orina", "libre", "habil", "barba", "fenix", "fiera", "hiena", "cloro", "legal", "jaque", "ozono", "caspa", "brazo", "actua", "azada", "cupon", "sedar", "queja", "peaje", "manta", "algun", "poema", "bruto", "lucha", "pinza", "ruido", "barca", "joder", "litro", "lento", "bello", "capaz", "floja", "pasta", "encia", "clase", "ciega", "congo", "pezon", "motel", "araña", "gorda", "enana", "venda", "estoy", "oigan", "chivo", "aliar", "tinta", "pecho", "ocupa", "mambo", "barco", "casco", "kenia", "creer", "plato", "mudar", "apnea", "manso", "crudo", "busto", "bromo", "ritmo", "banco", "simio", "deber", "etica", "viejo", "labor", "tarot", "fauna", "china", "liceo", "sismo", "docil", "acero", "horda", "salud", "linea", "carpa", "celta", "sushi", "tonta", "parto", "virar", "pecar", "falta", "narco", "guapa", 
-  "miedo", "fugar", "medio", "tenor", "regar", "choca", "pared", "arden", "pasar", "genia", "herir", "savia", "posar", "segar", "vapor", "falda", "belen", "tramo", "corre", "madre", "zorra", "koala", "cerro", "lecho", "romeo", "morir", "aguja", "viuda", "botar", "rifle", "serie", "canje", "etico", "bravo", "capto", "epico", "ameba","muero", "aforo", "cieno", "doblo", "salto", "santo", "bollo"]
+  "miedo", "fugar", "medio", "tenor", "regar", "choca", "pared", "arden", "pasar", "genia", "herir", "savia", "posar", "segar", "vapor", "falda", "belen", "tramo", "corre", "madre", "zorra", "koala", "cerro", "lecho", "romeo", "morir", "aguja", "viuda", "botar", "rifle", "serie", "canje", "etico", "bravo", "capto", "epico", "ameba","muero", "aforo", "cieno", "doblo", "salto", "santo", "bollo", "finta"]
 
 // Posición actual del jugador
 let fila = 0; // Primer intento
@@ -77,44 +77,62 @@ function crearTeclado() {
       let tecla = document.createElement("button"); // Creamos un botón
       tecla.classList.add("tecla"); // Agregamos la clase "tecla" al botón que hemos creado
       tecla.innerText = letras[i][j]; // Agregamos el texto que corresponde a la tecla que estamos creando
+      if (tecla.innerText === "ENVIAR") {
+        tecla.id = "Enter";
+      } else if (tecla.innerText === "BORRAR") {
+        tecla.id = "Backspace";
+      } else {
+        tecla.id = tecla.innerText;
+      }
+      tecla.addEventListener("click", function() { // Agregamos un evento al botón que hemos creado
+        inputTecla();
+      }) 
       linea.appendChild(tecla); // Agregamos el botón que hemos creado a la etiqueta div que hemos creado
-      
     }
     document.getElementById("teclado").appendChild(linea); // Agregamos la etiqueta div que hemos creado al elemento con el id "teclado"
   }
 }
 
-function entradaUsuario () {
-  document.addEventListener("keyup", function(e) {
-    if (gameOver) { // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
-      return;
-    } 
-    
-    // Limitamos las teclas que el usuario puede presionar para jugar
-    if (/^[a-zA-ZñÑ]$/.test(e.key)) {
-      if (columna < columnas) { // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
-        let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
-        if (casillaActual.innerText === "") { // Sólo agregamos letras si la casilla está vacía
-          casillaActual.innerText = e.key.toUpperCase(); // Agregamos la letra que el usuario ha presionado a la casilla actual.
-          columna++; // Aumentamos la columna para que el usuario pueda agregar la siguiente letra
-        }
-      }
-    } else if (e.code == "Backspace") { // Si el usuario presiona la tecla "Backspace", borramos última la letra que el usuario ha escrito
-      if (columna > 0 && columna <= columnas) { // Sólo borramos letras si el usuario ha escrito al menos una letra
-        columna--; // Disminuimos la columna para que el usuario pueda borrar la letra anterior
-        let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
-        casillaActual.innerText = ""; // Borramos la letra de la casilla actual
-      }
-    } else if (e.code == "Enter") { // Si el usuario presiona la tecla "Enter", comprobamos si la palabra es correcta
-      if (columna === columnas) { // Sólo comprobamos la palabra si el usuario ha escrito todas las letras
-        comprobarPalabra();
-      }
-    }
+function inputTecla() {
+  let e = {key: this.id};
+  inputUsuario(e);
+}
 
-    // Si el usuario se ha quedado sin intentos, pierde
-    if (fila === filas && !gameOver) {
-      gameOver = true;
+function inputUsuario(e) {
+  if (gameOver) { // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
+    return;
+  } 
+  
+  // Limitamos las teclas que el usuario puede presionar para jugar
+  if (/^[a-zA-ZñÑ]$/.test(e.key)) {
+    if (columna < columnas) { // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
+      let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
+      if (casillaActual.innerText === "") { // Sólo agregamos letras si la casilla está vacía
+        casillaActual.innerText = e.key.toUpperCase(); // Agregamos la letra que el usuario ha presionado a la casilla actual.
+        columna++; // Aumentamos la columna para que el usuario pueda agregar la siguiente letra
+      }
     }
+  } else if (e.key == "Backspace") { // Si el usuario presiona la tecla "Backspace", borramos última la letra que el usuario ha escrito
+    if (columna > 0 && columna <= columnas) { // Sólo borramos letras si el usuario ha escrito al menos una letra
+      columna--; // Disminuimos la columna para que el usuario pueda borrar la letra anterior
+      let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
+      casillaActual.innerText = ""; // Borramos la letra de la casilla actual
+    }
+  } else if (e.key == "Enter") { // Si el usuario presiona la tecla "Enter", comprobamos si la palabra es correcta
+    if (columna === columnas) { // Sólo comprobamos la palabra si el usuario ha escrito todas las letras
+      comprobarPalabra();
+    }
+  }
+
+  // Si el usuario se ha quedado sin intentos, pierde
+  if (fila === filas && !gameOver) {
+    gameOver = true;
+  }
+}
+
+function entradaUsuario() {
+  document.addEventListener("keyup", function(e) {
+    inputUsuario(e);
   })
 }
 
