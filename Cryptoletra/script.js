@@ -116,70 +116,23 @@ function entradaUsuario () {
 }
 
 function comprobarPalabra() {
-  let palabraUsuario = "";
-  for (let i = 0; i < columnas; i++) { // Obtenemos la palabra que el usuario ha escrito
-    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
-    palabraUsuario += casillaActual.innerText;
-  }
-
-  let palabraArray = transformarPalabra(palabra);
-
+  let correctas = 0;
   for (let i = 0; i < columnas; i++) { // Primero miramos las posiciones correctas
     let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
-    if (!casillaActual.classList.contains("oculta")) {
-      if (casillaActual.innerText === palabra[i]) {
-        palabraArray.splice(i, 1);
+    if (casillaActual.innerText === palabra[i]) {
+      correctas++;
+      if (!casillaActual.classList.contains("oculta")) {
         casillaActual.classList.add("correcta");
       }
-    }
-  }
-
-  for (let i = 0; i < columnas; i++) { // Luego miramos las posiciones incorrectas
-    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
-    if (!casillaActual.classList.contains("oculta")) {
-      if (palabraArray.includes(casillaActual.innerText)) {
-        palabraArray.splice(i, 1);
-        casillaActual.classList.add("incorrecta");
-      }
-    }
-  }
-
-  for (let i = 0; i < columnas; i++) { // Finalmente miramos las posiciones nulas
-    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
-    if (!casillaActual.classList.contains("oculta")) {
+    } else if (palabra.includes(casillaActual.innerText) && !casillaActual.classList.contains("oculta")) {
+      casillaActual.classList.add("incorrecta");
+    } else if (!casillaActual.classList.contains("oculta")) {
       casillaActual.classList.add("nula");
     }
-  }
-
-  if (palabraUsuario === palabra) { // Si la palabra que el usuario ha escrito es correcta, el juego termina
-    gameOver = true;
+    if (correctas === columnas) {
+      gameOver = true;
+    }
   }
   fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
   columna = 0; // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
 }
-
-/*
-function comprobarPalabra() {
-  let palabraUsuario = "";
-  for (let i = 0; i < columnas; i++) { // Obtenemos la palabra que el usuario ha escrito
-    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
-    palabraUsuario += casillaActual.innerText;
-  }
-  for (let i = 0; i < columnas; i++) { // Si la palabra que el usuario ha escrito es incorrecta, revelamos información
-    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
-    if (!casillaActual.classList.contains("oculta")) {
-      if (casillaActual.innerText === palabra[i]) {
-        casillaActual.classList.add("correcta");
-      } else if (palabra.includes(casillaActual.innerText)) {
-        casillaActual.classList.add("incorrecta");
-      } else {
-        casillaActual.classList.add("nula");
-      }
-    }
-  }
-  if (palabraUsuario === palabra) { // Si la palabra que el usuario ha escrito es correcta, el juego termina
-    gameOver = true;
-  }
-  fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
-  columna = 0; // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
-} */
