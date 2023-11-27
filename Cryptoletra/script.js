@@ -84,9 +84,7 @@ function crearTeclado() {
       } else {
         tecla.id = tecla.innerText;
       }
-      tecla.addEventListener("click", function() { // Agregamos un evento al botón que hemos creado
-        inputTecla();
-      }) 
+      tecla.addEventListener("click", inputTecla); 
       linea.appendChild(tecla); // Agregamos el botón que hemos creado a la etiqueta div que hemos creado
     }
     document.getElementById("teclado").appendChild(linea); // Agregamos la etiqueta div que hemos creado al elemento con el id "teclado"
