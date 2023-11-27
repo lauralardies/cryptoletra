@@ -127,6 +127,18 @@ function entradaUsuario () {
 
 function comprobarPalabra() {
   let correctas = 0; // Variable que lleva la cuenta de el número de letras que el usuario ha acertado
+  let palabraUsuario = ""; // Variable que guarda la palabra que el usuario ha escrito
+
+  // Recorremos todas las casillas de la fila actual para obtener la palabra que el usuario ha escrito
+  for (let i = 0; i < columnas; i++) {
+    let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
+    palabraUsuario += casillaActual.innerText;
+  }
+  palabraUsuario = palabraUsuario.toLowerCase(); // Para poder comparar la palabra del usuario con la lista de palabras, convertimos el intento a minúsculas
+
+  if (!palabras.includes(palabraUsuario)) { // Nos salimos de la función si el usuario ha escrito una palabra que no está en la lista de palabras
+    return;
+  }
 
   // Hacemos mapeo para llevar la cuenta de el número de veces que aparece cada letra en la palabra
   let mapLetras = {};
