@@ -1,6 +1,10 @@
 let filas = 6; // Las filas coinciden con el número de intentos que tiene el jugador para adivinar la palabra
 let columnas = 5; // Las columnas coinciden con el número de letras que tiene la palabra a adivinar
+
+// Letras del teclado
 let letras = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"], ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"], ["ENVIAR", "Z", "X", "C", "V", "B", "N", "M", "BORRAR"]];
+
+// Diccionario de palabras válidas
 let palabras = ["nieve", "hueso", "titan", "flujo", "disco", "razon", "mural", "abril", "vejez", "falso", "cañon", "obeso", "metal", "avena", "rubia", "pieza", "cuero", "noche", "bingo", "corto", "multa", "nieto", "dieta", "mosca", "nadal", "lider", "cerco", "rocio", "apoyo", "secta", "ganar", "besar", "novio", "albur", "litio", "llaga", "rueda", "corta", "feliz", "miope", "mojar", "cesta", "soplo", "nueve", "radio", "sexto", "sucio", "papel", "huevo", "polar", "rotar", "fuego", "lucir", "macho", "braza", "serio", "libra", "enano", "salsa", "ciego", "mujer", "sauna", "malta", "civil", "flota", "chile", "acudo", "modas", "criar", "hurto", "latir", "risas", "ganso", "suiza", "otoño", "suelo", "exito", "caber", "epica", "perra", "juego", "igneo", "ingle", "mango", "caida", "doler", "album", "sudar", "duque", "curro",
   "musgo", "varon", "crear", "carne", "ovulo", "nivel", "villa", "moral", "parte", "anexo", "tapiz", "fecha", "sesgo", "ligar", "chino", "patio", "votar", "torso", "avion", "dudar", "forja", "odiar", "utero", "cauce", "hogar", "relax", "yelmo", "regla", "marzo", "cairo", "aereo", "negro", "modal", "caldo", "museo", "abrir", "laser", "signo", "nariz", "peine", "turno", "coche", "pleno", "fibra", "faena", "sitio", "balsa", "ambar", "recta", "aquel", "impar", "tonto", "tirar", "caras", "fluir", "japon", "lugar", "coger", "traza", "tibio", "tenis", "monto", "curva", "oveja", "rumor", "sobra", "helio", "abaco", "gallo", "trama", "moler", "barro", "bando", "lista", "terna", "claro", "burla", "salir", "magia", "boxeo", "combo", "arepa", "dolar", "rifar", "ideal", "cinco", "cenar", "selva", "rayon", "tigre", "opera", "clave", 
   "arpon", "karma", "subir", "banda", "cavar", "tenaz", "prima", "cerda", "arder", "pañal", "mixta", "limon", "buena", "espia", "horno", "aguda", "polea", "sifon", "atomo", "cisne", "sufro", "sorda", "quedo", "teñir", "novia", "sordo", "teson", "curso", "suena", "queso", "frase", "flaco", "rubio", "drama", "traje", "calvo", "suero", "ebrio", "arbol", "gasto", "golfo", "cacho", "primo", "rombo", "falsa", "diosa", "flaca", "bahia", "dupla", "minar", "ilesa", "unica", "viaje", "anual", "gansa", "muela", "zorro", "nuevo", "sutil", "dogma", "rimar", "mente", "libro", "chula", "reves", "campo", "chico", "causa", "perro", "junto", "fauno", "digno", "tabla", "tocar", "culta", "piojo", "pivot", "droga", "cifra", "monte", "zurda", "cromo", "kayak", "frita", "marea", "oxido", "salmo", "fresa", "nadar", "presa", "bambu", "arena", 
@@ -16,7 +20,7 @@ let palabras = ["nieve", "hueso", "titan", "flujo", "disco", "razon", "mural", "
 let fila = 0; // Primer intento
 let columna = 0; // Primera letra de la palabra
 
-// Palabra a adivinar
+// Palabra a adivinar, seleccionada aleatoriamente de la lista de palabras
 let palabra = palabras[Math.floor(Math.random() * palabras.length)].toUpperCase();
 
 // Estado del juego
@@ -25,6 +29,7 @@ let gameOver = false;
 // Si el usuario pierde o gana
 let victoria = false;
 
+// Inicializamos el juego
 window.onload = function(){
   let instrucciones = document.getElementById("instrucciones");
 
@@ -38,11 +43,11 @@ window.onload = function(){
   })
   crearTablero();
   crearTeclado();
-  entradaUsuario();
+  inputFisico();
 }
 
-function mostrarFinal() {
-  // Una vez que el juego termina, mostramos la ventana final
+
+function mostrarFinal() { // Una vez que el juego termina, mostramos la ventana final
   let final = document.getElementById("final");
   final.classList.add("visible")
 
@@ -53,6 +58,7 @@ function mostrarFinal() {
   } else {
     texto.innerText = "¡Has perdido! La palabra era " + palabra + ".";
   }
+
   // Creamos un botón para que el usuario pueda volver a jugar una nueva partida
   btn = document.createElement("button");
   btn.classList.add("nueva-partida");
@@ -61,7 +67,7 @@ function mostrarFinal() {
     location.reload();
   })
 
-  // Creamos un separador y un espacio para que el texto y el botón no estén pegados
+  // Creamos un separador y espacios para que el texto y el botón no estén pegados
   separador = document.createElement("hr");
   espacio1 = document.createElement("br");
   espacio2 = document.createElement("br");
@@ -82,14 +88,14 @@ function generarArray() { // Genera un array con todas las posiciones posibles d
   return array;
 }
 
-function posicionAleatoria(array) {
+function posicionAleatoria(array) { // Escoge una posición aleatoria entre todas las posiciones posibles de las casillas en una fila
   let indice = Math.floor(Math.random() * array.length); // Escogemos un índice aleatorio entre todos los elementos del array
   let posicion = array[indice];
   array.splice(indice, 1); // Eliminamos el elemento que hemos elegido aleatoriamente para que no se repita
   return posicion;
 }
 
-function crearTablero() {
+function crearTablero() { // Crea el tablero de juego
   let casillasSinOcultar = generarArray(); // Creamos un array con las posiciones de las casillas que no se han ocultado. A medida que ocultamos casillas, eliminamos las posiciones de este array
   let casillaOculta, ultimaPosicion; // Posición de la casilla que se ocultará en cada fila
   for (let i = 0; i < filas; i++) {
@@ -116,7 +122,7 @@ function crearTablero() {
   }
 }
 
-function crearTeclado() {
+function crearTeclado() { // Crea el teclado de juego
   for (let i = 0; i < letras.length; i++) {
     let linea = document.createElement("div"); // Creamos una etiqueta div
     for (let j = 0; j < letras[i].length; j++) {
@@ -137,12 +143,18 @@ function crearTeclado() {
   }
 }
 
-function inputTecla() {
+function inputFisico() { // Función que se ejecuta cuando el usuario presiona una tecla del teclado físico
+  document.addEventListener("keyup", function(e) {
+    inputUsuario(e);
+  })
+}
+
+function inputTecla() { // Función que se ejecuta cuando el usuario presiona una tecla del teclado virtual
   let e = {key: this.id};
   inputUsuario(e);
 }
 
-function inputUsuario(e) {
+function inputUsuario(e) { // Función que se ejecuta cuando el usuario hace un input, ya sea por tecla o por click
   if (gameOver) { // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
     return;
   } 
@@ -175,13 +187,7 @@ function inputUsuario(e) {
   }
 }
 
-function entradaUsuario() {
-  document.addEventListener("keyup", function(e) {
-    inputUsuario(e);
-  })
-}
-
-function comprobarPalabra() {
+function comprobarPalabra() { // Comprueba si la palabra que el usuario ha escrito es correcta y evaluamos el resultado
   let correctas = 0; // Variable que lleva la cuenta de el número de letras que el usuario ha acertado
   let palabraUsuario = ""; // Variable que guarda la palabra que el usuario ha escrito
 
@@ -192,7 +198,19 @@ function comprobarPalabra() {
   }
   palabraUsuario = palabraUsuario.toLowerCase(); // Para poder comparar la palabra del usuario con la lista de palabras, convertimos el intento a minúsculas
 
-  if (!palabras.includes(palabraUsuario)) { // Nos salimos de la función si el usuario ha escrito una palabra que no está en la lista de palabras
+  if (!palabras.includes(palabraUsuario)) { // Nos salimos de la función si el usuario ha escrito una palabra que no está en la lista de palabras y se lo notificamos
+    // Creamos un mensaje de alerta
+    const mensaje = document.createElement("div");
+    mensaje.classList.add("alerta");
+    mensaje.innerText = "La palabra \'" + palabraUsuario + "\' no está en la lista de palabras.";
+    mensaje.style.display = "block";
+
+    document.getElementById("container").appendChild(mensaje);
+
+    setTimeout(() => { // Después de 5 segundos, ocultamos el mensaje automáticamente
+      mensaje.style.display = "none";
+    }, 5000);
+
     return;
   }
 
@@ -241,7 +259,6 @@ function comprobarPalabra() {
       }
     }
   }
-
   fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
   columna = 0; // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
 }
