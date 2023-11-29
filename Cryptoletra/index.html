@@ -17,15 +17,16 @@
             <div class="final" id="final"></div>
 
             <div class="encabezado">
-                <button type="submit" class="btn" onclick="mostrarInstrucciones()">&#128712;</button>
+                <button type="submit" class="btn" id="instrucciones-btn">&#128712;</button>
                 
                 <!-- Al hacer click en el botón de arriba se muestra el siguiente div de instrucciones -->
                 <div class="instrucciones" id="instrucciones">
                     <div class="encabezado">
                         <div class="btn"></div> <!-- Div vacío para centrar el título -->
                         <h2 id="titulo">CÓMO JUGAR</h2>
-                        <button type="button" class="btn" onclick="cerrarInstrucciones()">&#128473;</button>
+                        <button type="button" class="btn" id="cerrar">&#128473;</button>
                     </div>
+                    <br>
                     <hr>
                     <br>
                     <div>
@@ -49,18 +50,5 @@
             <br>
             <div id="teclado"></div>
         </div>
-
-    <script>
-        // Elemento del HTML que contiene las instrucciones
-        let instrucciones = document.getElementById("instrucciones");
-                
-        function mostrarInstrucciones() {
-        instrucciones.classList.add("visible");
-        }
-
-        function cerrarInstrucciones() {
-        instrucciones.classList.remove("visible");
-        }
-    </script>
     </body>
 </html>
