@@ -27,6 +27,35 @@ body {
     justify-content: space-between;
 }
 
+.instrucciones {
+    /* Posicionamos en el centro del navegador */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    transition: transform 0.4s, top 0.4s;
+
+    /* Mantenemos oculto el elemento */
+    visibility: hidden;
+
+    background-color: #fff;
+    width: 650px;
+    border-radius: 20px;
+    padding: 25px 25px;
+
+    /* Texto */
+    color: #222021;
+    font-family: 'consolas';
+    font-size: 14px;
+}
+
+.mostrar-instrucciones {
+    /* Mostramos el elemento */
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 #titulo {
     color: #222021;
     font-family: 'consolas'; 

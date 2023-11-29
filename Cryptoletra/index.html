@@ -16,9 +16,27 @@
     <body>
         <div class="container">
             <div class="encabezado">
-                <button class="btn">&#128712;</button>
+                <button type="submit" class="btn" onclick="mostrarInstrucciones()">&#128712;</button>
+                <div class="instrucciones" id="instrucciones">
+                    <div class="encabezado">
+                        <div class="btn"></div> <!-- Div vacío para centrar el título -->
+                        <h2 id="titulo">CÓMO JUGAR</h2>
+                        <button type="button" class="btn" onclick="cerrarInstrucciones()">&#128473;</button>
+                    </div>
+                    <hr>
+                    <br>
+                    <div>
+                        El objetivo principal del juego es adivinar la palabra oculta en 6 intentos. <br><br>
+                        En cada línea, debe ingresar cualquier palabra de 5 letras para averiguar qué letras hay en la palabra objetivo. Según la palabra que haya ingresado, las letras se resaltarán en tres colores: rosa, azul o gris. <br><br>
+                        ¡Cuidado! Las casillas marcadas de negro no te darán nada de información.
+                    </div>
+                    <br>
+                    <hr>        
+                    <br>
+                    <img src="./img/instrucciones.jpg" alt="Intrucciones" width="">
+                </div>
                 <h1 id="titulo">CRYPTOLETRA</h1>
-                <div class="btn"></div>
+                <div class="btn"></div> <!-- Div vacío para centrar el título -->
             </div>
             <br>
             <hr>
@@ -27,5 +45,18 @@
             <br>
             <div id="teclado"></div>
         </div>
+
+    <script>
+        // Elemento del HTML que contiene las instrucciones
+        let instrucciones = document.getElementById("instrucciones");
+                
+        function mostrarInstrucciones() {
+        instrucciones.classList.add("mostrar-instrucciones");
+        }
+
+        function cerrarInstrucciones() {
+        instrucciones.classList.remove("mostrar-instrucciones");
+        }
+    </script>
     </body>
 </html>
