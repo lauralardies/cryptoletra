@@ -10,7 +10,7 @@ let palabras = ["nieve", "hueso", "titan", "flujo", "disco", "razon", "mural", "
   "alien", "bueno", "tejer", "vacio", "grano", "jugar", "deseo", "ostra", "apaga", "hotel", "tener", "ictus", "exijo", "toldo", "metro", "donut", "atroz", "angel", "hongo", "foton", "golpe", "puñal", "ronda", "fuera", "latin", "cofre", "talar", "tilde", "canto", "hueco", "rezar", "calle", "pluma", "orden", "vieja", "humor", "fusil", "fosil", "usual", "favor", "enero", "leche", "calza", "fruta", "comer", "pixel", "usted", "rango", "pitar", "bomba", "bamba", "manco", "robar", "punto", "preso", "poder", "alero", "gotea", "chica", "rabia", "nunca", "dulce", "tribu", "forma", "agudo", "rollo", "rugby", "jabon", "torta", "hiato", "diodo", "obvia", "riego", "temor", "trozo", "lunar", "motor", "cable", "cagar", "paseo", "banal", "union", "media", "mamut", "tedio", "labio", "bombo", "rasgo", "lider", "reloj", "razon", "torre", 
   "jarra", "laica", "ocaso", "amigo", "debil", "sabor", "menor", "indio", "dolor", "honra", "obesa", "techo", "ajeno", "tinte", "lemur", "plana", "caigo", "animo", "quema", "baton", "femur", "bolso", "rodar", "cabal", "ataud", "agrio", "atril", "pelea", "donar", "feroz", "linda", "datil", "farol", "norte", "rasta", "dañar", "motin", "negar", "gorra", "mafia", "letal", "lepra", "arabe", "laton", "angel", "padel", "pauta", "legua", "freno", "logro", "goteo", "rigor", "pizca", "magma", "ovalo", "virgo", "cursi", "batir", "momia", "aleta", "plaga", "apaña", "lleno", "vigor", "adobo", "junta", "pagar", "ajena", "rodeo", "acida", "plena", "palco", "asado", "ayuda", "magna", "vibra", "citar", "pulso", "mayor", "termo", "meson", "fondo", "tesis", "mueca", "calca", "solar", "prado", "pista", "sudor", "praga", "polen", "aroma", 
   "nuera", "plata", "orina", "libre", "habil", "barba", "fenix", "fiera", "hiena", "cloro", "legal", "jaque", "ozono", "caspa", "brazo", "actua", "azada", "cupon", "sedar", "queja", "peaje", "manta", "algun", "poema", "bruto", "lucha", "pinza", "ruido", "barca", "joder", "litro", "lento", "bello", "capaz", "floja", "pasta", "encia", "clase", "ciega", "congo", "pezon", "motel", "araña", "gorda", "enana", "venda", "estoy", "oigan", "chivo", "aliar", "tinta", "pecho", "ocupa", "mambo", "barco", "casco", "kenia", "creer", "plato", "mudar", "apnea", "manso", "crudo", "busto", "bromo", "ritmo", "banco", "simio", "deber", "etica", "viejo", "labor", "tarot", "fauna", "china", "liceo", "sismo", "docil", "acero", "horda", "salud", "linea", "carpa", "celta", "sushi", "tonta", "parto", "virar", "pecar", "falta", "narco", "guapa", 
-  "miedo", "fugar", "medio", "tenor", "regar", "choca", "pared", "arden", "pasar", "genia", "herir", "savia", "posar", "segar", "vapor", "falda", "belen", "tramo", "corre", "madre", "zorra", "koala", "cerro", "lecho", "romeo", "morir", "aguja", "viuda", "botar", "rifle", "serie", "canje", "etico", "bravo", "capto", "epico", "ameba","muero", "aforo", "cieno", "doblo", "salto", "santo", "bollo", "finta", "plazo", "cinta", "audio", "iluso", "ilusa", "grito"]
+  "miedo", "fugar", "medio", "tenor", "regar", "choca", "pared", "arden", "pasar", "genia", "herir", "savia", "posar", "segar", "vapor", "falda", "belen", "tramo", "corre", "madre", "zorra", "koala", "cerro", "lecho", "romeo", "morir", "aguja", "viuda", "botar", "rifle", "serie", "canje", "etico", "bravo", "capto", "epico", "ameba","muero", "aforo", "cieno", "doblo", "salto", "santo", "bollo", "finta", "plazo", "cinta", "audio", "iluso", "ilusa", "grito", "sobre", "resto", "coste"]
 
 // Posición actual del jugador
 let fila = 0; // Primer intento
@@ -22,10 +22,45 @@ let palabra = palabras[Math.floor(Math.random() * palabras.length)].toUpperCase(
 // Estado del juego
 let gameOver = false;
 
+// Si el usuario pierde o gana
+let victoria = false;
+
 window.onload = function(){
   crearTablero();
   crearTeclado();
   entradaUsuario();
+}
+
+function mostrarFinal() {
+  // Una vez que el juego termina, mostramos la ventana final
+  let final = document.getElementById("final");
+  final.classList.add("visible")
+
+  // Creamos un texto cuyo contenido dependerá de si el usuario ha ganado o perdido
+  texto = document.createElement("div");
+  if (victoria) {
+    texto.innerText = "¡Enhorabuena! Has ganado la partida.";
+  } else {
+    texto.innerText = "¡Has perdido! La palabra era " + palabra + ".";
+  }
+  // Creamos un botón para que el usuario pueda volver a jugar una nueva partida
+  btn = document.createElement("button");
+  btn.classList.add("nueva-partida");
+  btn.innerText = "Volver a jugar";
+  btn.addEventListener("click", function() {
+    location.reload();
+  })
+
+  // Creamos un separador y un espacio para que el texto y el botón no estén pegados
+  separador = document.createElement("hr");
+  espacio = document.createElement("br");
+
+  // Agregamos el texto, el separador y el botón al elemento con el id "final"
+  final.appendChild(texto);
+  final.appendChild(espacio);
+  final.appendChild(separador);
+  final.appendChild(espacio);
+  final.appendChild(btn);
 }
 
 function generarArray() { // Genera un array con todas las posiciones posibles de las casillas en una fila
@@ -125,6 +160,7 @@ function inputUsuario(e) {
   // Si el usuario se ha quedado sin intentos, pierde
   if (fila === filas && !gameOver) {
     gameOver = true;
+    mostrarFinal();
   }
 }
 
@@ -173,6 +209,8 @@ function comprobarPalabra() {
     }
     if (correctas === columnas) {
       gameOver = true;
+      victoria = true;
+      mostrarFinal();
     }
   }
   

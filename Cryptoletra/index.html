@@ -13,8 +13,13 @@
     </head>
     <body>
         <div class="container">
+            <!-- Cuando terminas el juego (ya sea ganar o perder) se muestra este div-->
+            <div class="final" id="final"></div>
+
             <div class="encabezado">
                 <button type="submit" class="btn" onclick="mostrarInstrucciones()">&#128712;</button>
+                
+                <!-- Al hacer click en el botón de arriba se muestra el siguiente div de instrucciones -->
                 <div class="instrucciones" id="instrucciones">
                     <div class="encabezado">
                         <div class="btn"></div> <!-- Div vacío para centrar el título -->
@@ -33,6 +38,7 @@
                     <br>
                     <img src="./img/instrucciones.jpg" alt="Intrucciones" width="">
                 </div>
+
                 <h1 id="titulo">CRYPTOLETRA</h1>
                 <div class="btn"></div> <!-- Div vacío para centrar el título -->
             </div>
@@ -49,11 +55,11 @@
         let instrucciones = document.getElementById("instrucciones");
                 
         function mostrarInstrucciones() {
-        instrucciones.classList.add("mostrar-instrucciones");
+        instrucciones.classList.add("visible");
         }
 
         function cerrarInstrucciones() {
-        instrucciones.classList.remove("mostrar-instrucciones");
+        instrucciones.classList.remove("visible");
         }
     </script>
     </body>
