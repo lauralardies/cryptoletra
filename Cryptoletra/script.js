@@ -205,7 +205,7 @@ function comprobarPalabra() { // Comprueba si la palabra que el usuario ha escri
     mensaje.innerText = "La palabra \'" + palabraUsuario + "\' no está en la lista de palabras.";
     mensaje.style.display = "block";
 
-    document.getElementById("container").appendChild(mensaje);
+    document.getElementById("mensaje").appendChild(mensaje);
 
     setTimeout(() => { // Después de 5 segundos, ocultamos el mensaje automáticamente
       mensaje.style.display = "none";
