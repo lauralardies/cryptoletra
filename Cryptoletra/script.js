@@ -1,4 +1,8 @@
-let filas = 6; // Las filas coinciden con el número de intentos que tiene el jugador para adivinar la palabra
+// --------------------------------
+// DEFINICIÓN DE VARIABLES GLOBALES
+// --------------------------------
+
+let filas = 6; // Las filas coinciden con el número de intentos totales que tiene el jugador para adivinar la palabra
 let columnas = 5; // Las columnas coinciden con el número de letras que tiene la palabra a adivinar
 
 // Letras del teclado
@@ -30,7 +34,13 @@ let gameOver = false;
 // Si el usuario pierde o gana
 let victoria = false;
 
-// Inicializamos el juego
+
+
+
+// -----------------------
+// EJECUCIÓN DEL PROGRAMA
+// -----------------------
+
 window.onload = function(){
   let instrucciones = document.getElementById("instrucciones");
 
@@ -48,7 +58,16 @@ window.onload = function(){
   inputFisico();
 }
 
-function mostrarFinal() { // Una vez que el juego termina, mostramos la ventana final
+
+
+
+// -----------------------
+// DEFINICIÓN DE FUNCIONES
+// -----------------------
+
+
+// Función que se ejecuta una vez el juego termina, para mostrar la ventana final
+function mostrarFinal() { 
   let final = document.getElementById("final");
   final.classList.add("visible")
 
@@ -81,7 +100,9 @@ function mostrarFinal() { // Una vez que el juego termina, mostramos la ventana 
   final.appendChild(btn);
 }
 
-function generarArray() { // Genera un array con todas las posiciones posibles de las casillas en una fila
+
+// Función que genera un array con todas las posiciones posibles de las casillas en una fila
+function generarArray() { 
   let array = [];
   for (let i = 0; i < columnas; i++) {
     array.push(i);
@@ -89,47 +110,98 @@ function generarArray() { // Genera un array con todas las posiciones posibles d
   return array;
 }
 
-function posicionAleatoria(array) { // Escoge una posición aleatoria entre todas las posiciones posibles de las casillas en una fila
-  let indice = Math.floor(Math.random() * array.length); // Escogemos un índice aleatorio entre todos los elementos del array
+
+// Función que escoge una posición aleatoria entre todas las posiciones posibles de las casillas en una fila
+function posicionAleatoria(array) { 
+  // Escogemos un índice aleatorio entre todos los elementos del array
+  let indice = Math.floor(Math.random() * array.length); 
+
   let posicion = array[indice];
-  array.splice(indice, 1); // Eliminamos el elemento que hemos elegido aleatoriamente para que no se repita
+
+  // Eliminamos el elemento que hemos elegido aleatoriamente para que no se repita la posición cuando volvemos a llamar a la función
+  array.splice(indice, 1); 
+
   return posicion;
 }
 
-function crearTablero() { // Crea el tablero de juego
-  let casillasSinOcultar = generarArray(); // Creamos un array con las posiciones de las casillas que no se han ocultado. A medida que ocultamos casillas, eliminamos las posiciones de este array
-  let casillaOculta, ultimaPosicion; // Posición de la casilla que se ocultará en cada fila
+
+// Función que crea el tablero de juego. Se podría hacer en HTML, pero allí no se pueden hacer iteraciones y tomaría más espacio
+function crearTablero() { 
+  // Creamos un array con las posiciones de las casillas que no se han ocultado. A medida que ocultamos casillas, eliminamos las posiciones de este array
+  // Lo hacemos con el fin de que no se repitan las posiciones de las casillas ocultas en las filas
+  let casillasSinOcultar = generarArray(); 
+
+  // Definimos la posición de la casilla que se ocultará en cada fila y la última posición que hemos ocultado
+  let casillaOculta, ultimaPosicion;
+
   for (let i = 0; i < filas; i++) {
-    if (casillasSinOcultar.length === 0) { // Si ya no quedan casillas por ocultar, escogemos una posición aleatoria entre todas las casillas
+
+    // Si ya hempos ocultado todas las casillas una vez, reseteamos el array de casillas que no se han ocultado para seguir ocultando casillas
+    if (casillasSinOcultar.length === 0) { 
+
       let array = generarArray();
-      array.splice(ultimaPosicion, 1); // Eliminamos la última posición que hemos ocultado para que no se repita, ya que no queremos que se oculten las mismas casillas en dos filas seguidas
+
+      // Eliminamos la última posición que hemos ocultado para que no se repita, ya que no queremos que se oculten las mismas casillas en dos filas seguidas
+      array.splice(ultimaPosicion, 1);
+
+      // Escogemos una posición aleatoria entre las casillas que aún no se han ocultado
       casillaOculta = posicionAleatoria(array);
-    } else { // Si aún quedan casillas por ocultar, escogemos una posición aleatoria entre las casillas que aún no se han ocultado
+
+    // Si aún quedan casillas por ocultar, escogemos una posición aleatoria entre las casillas que aún no se han ocultado
+    } else { 
+      
       casillaOculta = posicionAleatoria(casillasSinOcultar);
-      if (casillasSinOcultar.length === 0) { // Si ya no quedan casillas por ocultar, guardamos la última posición que hemos ocultado
+
+      // Si tras hacer la selección de la casilla oculta queda el array de casillas sin ocultar vacío, guardamos la última posición que hemos ocultado para evitar repeticiones posteriormente
+      if (casillasSinOcultar.length === 0) { 
         ultimaPosicion = casillaOculta;
       }
+
     }
+
     for (let j = 0; j < columnas; j++) {
-      let casilla = document.createElement("span"); // Creamos una etiqueta span
-      casilla.classList.add("casilla"); // Agregamos la clase "casilla" a la etiqueta span que hemos creado
-      casilla.id = "casilla-" + i + "-" + j; // Agregamos un id a la etiqueta span que hemos creado: casilla-0-0, casilla-0-1, casilla-0-2, etc.
-      casilla.innerText = ""; // Agregamos un texto vacío a la etiqueta span que hemos creado
-      if (j === casillaOculta) { // Si la columna coincide con la columna oculta, agregamos la clase oculta a la casilla
+
+      // Creamos una etiqueta span para cada casilla
+      let casilla = document.createElement("span"); 
+
+      // Agregamos la clase "casilla" a la etiqueta span que hemos creado
+      casilla.classList.add("casilla"); 
+
+      // Agregamos un id a la casilla: casilla-0-0, casilla-0-1, casilla-0-2, etc.
+      casilla.id = "casilla-" + i + "-" + j; 
+
+      // Agregamos un texto vacío a la casilla
+      casilla.innerText = ""; 
+
+      // Si la columna coincide con la columna oculta, agregamos la clase oculta a la casilla
+      if (j === casillaOculta) { 
         casilla.classList.add("oculta");
       }
-      document.getElementById("tablero").appendChild(casilla); // Agregamos la etiqueta span que hemos creado al elemento con el id "tablero"
+
+      // Agregamos la etiqueta span que hemos creado al elemento con el id "tablero"
+      document.getElementById("tablero").appendChild(casilla); 
     }
   }
 }
 
-function crearTeclado() { // Crea el teclado de juego
+
+// Función que crea el teclado de juego
+function crearTeclado() { 
   for (let i = 0; i < letras.length; i++) {
-    let linea = document.createElement("div"); // Creamos una etiqueta div
+    // Creamos una etiqueta div para cada línea del teclado
+    let linea = document.createElement("div"); 
+
     for (let j = 0; j < letras[i].length; j++) {
-      let tecla = document.createElement("button"); // Creamos un botón
-      tecla.classList.add("tecla"); // Agregamos la clase "tecla" al botón que hemos creado
-      tecla.innerText = letras[i][j]; // Agregamos el texto que corresponde a la tecla que estamos creando
+      // Creamos un botón para cada tecla del teclado
+      let tecla = document.createElement("button"); 
+
+      // Agregamos la clase "tecla" a la tecla
+      tecla.classList.add("tecla"); 
+
+      // Agregamos el texto que corresponde a la tecla que estamos creando
+      tecla.innerText = letras[i][j]; 
+
+      // Agregamos un id a la tecla: Q, W, E, R, etc.
       if (tecla.innerText === "ENVIAR") {
         tecla.id = "Enter";
       } else if (tecla.innerText === "BORRAR") {
@@ -137,12 +209,19 @@ function crearTeclado() { // Crea el teclado de juego
       } else {
         tecla.id = tecla.innerText;
       }
+
+      // Agregamos un evento a cada tecla para que se ejecute la función inputTecla cuando el usuario haga click en el botón la tecla
       tecla.addEventListener("click", inputTecla); 
-      linea.appendChild(tecla); // Agregamos el botón que hemos creado a la etiqueta div que hemos creado
+
+      // Agregamos el botón que hemos creado a la etiqueta div linea que hemos creado
+      linea.appendChild(tecla); 
     }
-    document.getElementById("teclado").appendChild(linea); // Agregamos la etiqueta div que hemos creado al elemento con el id "teclado"
+
+    // Agregamos cada linea al elemento con el id "teclado"
+    document.getElementById("teclado").appendChild(linea); 
   }
 }
+
 
 function inputFisico() { // Función que se ejecuta cuando el usuario presiona una tecla del teclado físico
   document.addEventListener("keyup", function(e) {
@@ -150,38 +229,65 @@ function inputFisico() { // Función que se ejecuta cuando el usuario presiona u
   })
 }
 
-function inputTecla() { // Función que se ejecuta cuando el usuario presiona una tecla del teclado virtual
-  let e = {key: this.id};
+
+
+// Función que se ejecuta cuando el usuario presiona una tecla del teclado virtual
+function inputTecla() { 
+  // Creamos un objeto con la propiedad key que contiene el id de la tecla que el usuario ha presionado
+  let e = {key: this.id}; 
+
+  // Ejecutamos la función inputUsuario para analizar el input del usuario
   inputUsuario(e);
 }
 
-function inputUsuario(e) { // Función que se ejecuta cuando el usuario hace un input, ya sea por tecla o por click
-  if (gameOver) { // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
+
+// Función que se ejecuta cuando el usuario hace un input, ya sea por tecla o por click
+function inputUsuario(e) { 
+  // Cuando el juego termina, dejamos de escuchar lo que el usuario escribe
+  if (gameOver) { 
     return;
   } 
   
-  // Limitamos las teclas que el usuario puede presionar para jugar
+  // Limitamos las teclas que el usuario puede presionar para jugar, si no es válida, no hacemos nada
+
+  // Analizamos si el usuario ha presionado una tecla entre la A y la Z incluyendo la Ñ
   if (/^[a-zA-ZñÑ]$/.test(e.key)) {
-    if (columna < columnas) { // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
+    // Sólo agregamos letras si el usuario no ha completado la palabra (es decir, si no ha llegado a la última columna)
+    if (columna < columnas) { 
       let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
-      if (casillaActual.innerText === "") { // Sólo agregamos letras si la casilla está vacía
-        casillaActual.innerText = e.key.toUpperCase(); // Agregamos la letra que el usuario ha presionado a la casilla actual.
-        columna++; // Aumentamos la columna para que el usuario pueda agregar la siguiente letra
+
+      // Sólo agregamos letras si la casilla está vacía para evitar sobreescribir letras
+      if (casillaActual.innerText === "") { 
+        // Agregamos la letra que el usuario ha presionado a la casilla actual.
+        casillaActual.innerText = e.key.toUpperCase(); 
+
+        // Aumentamos la columna para cambiar de casilla y que el usuario pueda agregar la siguiente letra
+        columna++; 
       }
     }
-  } else if (e.key == "Backspace") { // Si el usuario presiona la tecla "Backspace", borramos última la letra que el usuario ha escrito
-    if (columna > 0 && columna <= columnas) { // Sólo borramos letras si el usuario ha escrito al menos una letra
-      columna--; // Disminuimos la columna para que el usuario pueda borrar la letra anterior
+
+  // Analizamos si el usuario ha presionado la tecla "Backspace", entonces borramos la última letra que el usuario ha escrito
+  } else if (e.key == "Backspace") {
+    // Sólo borramos letras si el usuario ha escrito al menos una letra
+    if (columna > 0 && columna <= columnas) { 
+      // Disminuimos la columna para que el usuario pueda escribir en la casilla anterior
+      columna--; 
+
       let casillaActual = document.getElementById("casilla-" + fila + "-" + columna);
-      casillaActual.innerText = ""; // Borramos la letra de la casilla actual
+
+      // Borramos el contenido de la casilla actual, que es la que el usuario quiere borrar
+      casillaActual.innerText = ""; 
     }
-  } else if (e.key == "Enter") { // Si el usuario presiona la tecla "Enter", comprobamos si la palabra es correcta
-    if (columna === columnas) { // Sólo comprobamos la palabra si el usuario ha escrito todas las letras
+
+  // Analizamos si el usuario ha presionado la tecla "Enter", entonces comprobamos si la palabra es correcta
+  } else if (e.key == "Enter") { 
+     // Sólo comprobamos la palabra si el usuario ha escrito todas las letras
+    if (columna === columnas) {
       comprobarPalabra();
     }
   }
 
-  // Si el usuario se ha quedado sin intentos, pierde
+  // Tras comprobar la palabra, si el usuario se ha quedado sin intentos, pierde
   if (fila === filas && !gameOver) {
     gameOver = true;
     let perder = document.getElementById("perder");
@@ -190,18 +296,26 @@ function inputUsuario(e) { // Función que se ejecuta cuando el usuario hace un 
   }
 }
 
-function comprobarPalabra() { // Comprueba si la palabra que el usuario ha escrito es correcta y evaluamos el resultado
-  let correctas = 0; // Variable que lleva la cuenta de el número de letras que el usuario ha acertado
-  let palabraUsuario = ""; // Variable que guarda la palabra que el usuario ha escrito
+
+// Función encargada de comprobar si la palabra que el usuario ha escrito es correcta y evaluamos el resultado
+function comprobarPalabra() { 
+  // Variable que lleva la cuenta de el número de letras que el usuario ha acertado
+  let correctas = 0; 
+
+  // Variable que guarda la palabra que el usuario ha escrito
+  let palabraUsuario = ""; 
 
   // Recorremos todas las casillas de la fila actual para obtener la palabra que el usuario ha escrito
   for (let i = 0; i < columnas; i++) {
     let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
     palabraUsuario += casillaActual.innerText;
   }
-  palabraUsuario = palabraUsuario.toLowerCase(); // Para poder comparar la palabra del usuario con la lista de palabras, convertimos el intento a minúsculas
 
-  if (!palabras.includes(palabraUsuario)) { // Nos salimos de la función si el usuario ha escrito una palabra que no está en la lista de palabras y se lo notificamos
+  // Para poder comparar la palabra del usuario con la lista de palabras, convertimos el intento a minúsculas
+  palabraUsuario = palabraUsuario.toLowerCase(); 
+
+  // Antes de analizar la palabra, nos salimos de la función si el usuario ha escrito una palabra que no está en la lista de palabras y se lo notificamos
+  if (!palabras.includes(palabraUsuario)) { 
     // Creamos un mensaje de alerta y reproducimos un sonido
     let no_dict = document.getElementById("no_diccionario");
     no_dict.play();
@@ -213,7 +327,8 @@ function comprobarPalabra() { // Comprueba si la palabra que el usuario ha escri
 
     document.getElementById("mensaje").appendChild(mensaje);
 
-    setTimeout(() => { // Después de 5 segundos, ocultamos el mensaje automáticamente
+    // Después de 5 segundos, ocultamos el mensaje automáticamente
+    setTimeout(() => { 
       mensaje.style.display = "none";
     }, 5000);
 
@@ -230,18 +345,31 @@ function comprobarPalabra() { // Comprueba si la palabra que el usuario ha escri
     }
   }
 
-  for (let i = 0; i < columnas; i++) { // Primero miramos las posiciones correctas
+  // Ahora analizamos la palabra que el usuario ha escrito
+
+  // Primero miramos las posiciones correctas
+  for (let i = 0; i < columnas; i++) { 
     let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
     let teclaActual = document.getElementById(casillaActual.innerText);
     
+    // Marcamos como correctas aquellas casillas que el usuario ha escrito en la posición correcta
     if (casillaActual.innerText === palabra[i]) {
       correctas++;
+
+      // Si la casilla es oculta, no la marcamos como correcta porque no podemos revelar información
       if (!casillaActual.classList.contains("oculta")) {
+
+        // Eliminamos una aparición de la letra en el mapa para saber que ya hemos marcado la letra
         mapLetras[casillaActual.innerText]--;
+
         casillaActual.classList.add("correcta");
+
+        // Si la casilla es correcta, también marcamos la tecla del teclado virtual como correcta
         teclaActual.classList.add("correcta");
       }
     }
+
+    // Si las casillas correctas coinciden con el número de columnas, el usuario ha adivinado la palabra., fin de juego
     if (correctas === columnas) {
       gameOver = true;
       victoria = true;
@@ -250,23 +378,38 @@ function comprobarPalabra() { // Comprueba si la palabra que el usuario ha escri
       mostrarFinal();
     }
   }
-  
-  for (let i = 0; i < columnas; i++) { // En la segunda vuelta, miramos las posiciones incorrectas y nulas
+
+  // En la segunda vuelta, miramos las posiciones incorrectas y nulas
+  for (let i = 0; i < columnas; i++) { 
     let casillaActual = document.getElementById("casilla-" + fila + "-" + i);
     let teclaActual = document.getElementById(casillaActual.innerText);
 
+    // Vemos que sólo analizamos la casilla si no está marcada como correcta ni oculta
     if (!casillaActual.classList.contains("correcta") && !casillaActual.classList.contains("oculta")) { // Nos aseguramos que no estamos mirando una posición correcta ni oculta
+      
+      // Está en la posición incorrecta si la letra está en la palabra y aún quedan apariciones de la letra en el mapa
       if (palabra.includes(casillaActual.innerText) && mapLetras[casillaActual.innerText] > 0) {
-        mapLetras[casillaActual.innerText]--;
-        casillaActual.classList.add("incorrecta");
-        teclaActual.classList.add("incorrecta");
 
+        // Eliminamos una aparición de la letra en el mapa para saber que ya hemos marcado la letra
+        mapLetras[casillaActual.innerText]--;
+
+        casillaActual.classList.add("incorrecta");
+
+        // Si la casilla es incorrecta, también marcamos la tecla del teclado virtual como incorrecta
+        teclaActual.classList.add("incorrecta");
+      
+      // Si no es correcta, ni oculta, ni incorrecta, es nula
       } else {
         casillaActual.classList.add("nula");
         teclaActual.classList.add("nula");
       }
     }
   }
-  fila++; // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
-  columna = 0; // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
+  // Tras analizar la palabra:
+
+  // Aumentamos la fila para que el usuario pueda agregar la siguiente letra
+  fila++; 
+
+  // Reiniciamos la columna para que el usuario pueda agregar la primera letra de la siguiente palabra
+  columna = 0; 
 }
