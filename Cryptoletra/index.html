@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,16 @@
         <!-- Enlace al script -->
         <script src="./script.js"></script>
     </head>
+
     <body>
-        <!-- Cargamos los audios y ponemos preload auto para que no se retrasen los sonidos al dar play-->
+        <!-- Cargamos los audios y ponemos preload auto para que los sonidos se retrasen lo menos posible -->
         <audio id="ganar" src="./audio/ganar.mp3" preload="auto"></audio>
         <audio id="perder" src="./audio/perder.mp3" preload="auto"></audio>
         <audio id="no_diccionario" src="./audio/no_diccionario.mp3" preload="auto"></audio>
 
+        <!-- Empezamos con la estructura de la página-->
         <div class="container" id="container">
+
             <!-- Cuando terminas el juego (ya sea ganar o perder) se muestra este div-->
             <div class="final" id="final"></div>
             
@@ -25,39 +29,51 @@
             <div id="mensaje"></div>
 
             <div class="encabezado">
+
                 <button type="submit" class="btn" id="instrucciones-btn">&#128712;</button>
                 
                 <!-- Al hacer click en el botón de arriba se muestra el siguiente div de instrucciones -->
                 <div class="instrucciones" id="instrucciones">
+
                     <div class="encabezado">
                         <div class="btn"></div> <!-- Div vacío para centrar el título -->
                         <h2>CÓMO JUGAR</h2>
                         <button type="button" class="btn" id="cerrar">&#128473;</button>
                     </div>
+
                     <br>
                     <hr>
                     <br>
+
                     <div>
                         El objetivo principal del juego es adivinar la palabra oculta en 6 intentos. <br><br>
                         En cada línea, debe ingresar cualquier palabra de 5 letras para averiguar qué letras hay en la palabra objetivo. Según la palabra que haya ingresado, las letras se resaltarán en tres colores: rosa, azul o gris. <br><br>
                         ¡Cuidado! Las casillas marcadas de negro no le darán nada de información.
                     </div>
+
                     <br>
                     <hr>        
                     <br>
+                    
                     <img src="./img/instrucciones.png" alt="Intrucciones" style="width: 100%;">
                 </div>
 
                 <h1>CRYPTOLETRA</h1>
+
                 <div class="btn"></div> <!-- Div vacío para centrar el título -->
+
             </div>
 
             <br>
             <hr>
             <br>
+
             <div id="tablero"></div>
+
             <br>
+
             <div id="teclado"></div>
         </div>
     </body>
+
 </html>
