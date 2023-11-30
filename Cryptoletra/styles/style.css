@@ -106,7 +106,7 @@ body {
     align-items: center;
 }
 
-#titulo {
+.titulo {
     color: #222021;
     font-family: 'consolas'; 
     font-weight: bold;
