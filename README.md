@@ -7,11 +7,10 @@ https://github.com/lauralardies/cryptoletra
 
 **Cryptoletra** es un juego que tiene la misma dinámica que el famoso Wordle. Consiste en adivinar la palabra oculta de 5 letras, sin embargo, hay ciertas casillas que están ocultas y de las cuales no podrás obtener información. 
 
-<img alt="instrucciones" src="https://github.com/lauralardies/cryptoletra/blob/main/Cryptoletra/img/instrucciones.png">
+<img alt="instrucciones" src="https://github.com/lauralardies/cryptoletra/blob/main/img/instrucciones.png">
 
 ## Archivos
 
-Todos los archivos de este proyecto se encuentran ubicados en una carpeta llamada `Cryptoletra`. Esta carpeta contiene:
 - Carpeta `audio` donde se guardan todos los audios mp3 que se emplean en el programa.
 - Carpeta `img` que almacena las imágenes que usamos en el juego.
 - Carpeta `styles` que contiene el archivo `style.css`, donde definimos clases e ids para asignarle a etiquetas HTML y poder modificar su imagen.
