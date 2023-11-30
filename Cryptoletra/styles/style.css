@@ -1,3 +1,7 @@
+/* ----------------------------------- */
+/*           ESTILOS GENERALES         */
+/* ----------------------------------- */
+
 * {
     margin: 0;
     padding: 0;
@@ -8,17 +12,23 @@ body {
     background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
-.container {
-    /* Posicionamos en el centro del navegador */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+h1, h2 {
+    color: #222021;
+    font-family: 'consolas'; 
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 3px;
+}
 
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 25px 25px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+/* ----------------------------------- */
+/*   CLASES E IDS PARA ELEMENTOS DIV   */
+/* ----------------------------------- */
+
+.encabezado {
+    /* div que contiene el encabezado */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #mensaje{
@@ -40,6 +50,37 @@ body {
     color: white;
     font-family: 'consolas';
     font-size: 13px;
+}
+
+.container {
+    /* Posicionamos en el centro del navegador */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 25px 25px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+#tablero {
+    width: 240px;
+    height: 320px;
+    margin: 0 auto;
+    margin-top: 3px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#teclado {
+    margin: 0 auto;
+    margin-top: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .instrucciones {
@@ -100,18 +141,17 @@ body {
     transform: translate(-50%, -50%) scale(1);
 }
 
-.encabezado {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+/* ----------------------------------- */
+/*     CLASES PARA ELEMENTOS BOTÓN     */
+/* ----------------------------------- */
 
-.titulo {
+.btn {
+    background-color: transparent;
+    border: none;
     color: #222021;
-    font-family: 'consolas'; 
-    font-weight: bold;
-    text-align: center;
-    letter-spacing: 3px;
+    padding: 8px 12px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .nueva-partida {
@@ -124,58 +164,9 @@ body {
     cursor: pointer;
 }
 
-.nueva-partida:hover {
+.btn:hover, .nueva-partida:hover {
+    /* Se activa cuando el ratón pasa por encima */
     opacity: 0.7;
-}
-
-#tablero {
-    width: 240px;
-    height: 320px;
-    margin: 0 auto;
-    margin-top: 3px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#teclado {
-    margin: 0 auto;
-    margin-top: 3px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.btn {
-    background-color: transparent;
-    border: none;
-    color: #222021;
-    padding: 8px 12px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    opacity: 0.7;
-}
-
-.casilla {
-    /* Cuadrícula */
-    border: 1px solid gray;
-    width: 40px;
-    height: 40px;
-    margin: 2.5px;
-    border-radius: 10%;
-
-    /* Texto */
-    color: #222021;
-    font-family: 'consolas'; 
-    font-weight: bold;
-    font-size: 25px;
-    /* Centramos el texto */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .tecla {
@@ -195,6 +186,29 @@ body {
 .tecla:hover {
     /* Se activa cuando el ratón pasa por encima */
     background-color: lightgray;
+}
+
+/* ------------------------------------ */
+/*     CLASES PARA ELEMENTOS SPAN       */
+/* ------------------------------------ */
+
+.casilla {
+    /* Cuadrícula */
+    border: 1px solid gray;
+    width: 40px;
+    height: 40px;
+    margin: 2.5px;
+    border-radius: 10%;
+
+    /* Texto */
+    color: #222021;
+    font-family: 'consolas'; 
+    font-weight: bold;
+    font-size: 25px;
+    /* Centramos el texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nula {
